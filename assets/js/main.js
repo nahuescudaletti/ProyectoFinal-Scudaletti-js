@@ -1,5 +1,4 @@
-
-  let listaPersonajes = [
+let listaPersonajes = [
     {nombre: "Goku", vida: 100, poder: "Kamehameha"},
     {nombre:"Luffy", vida:100, poder:"Gomu Gomu no Pistol"},
     {nombre:"Naruto", vida:100, poder:"Rasengan",},
@@ -12,71 +11,87 @@
   
   function seleccionarPersonaje(personaje) {
     if (personaje1 === null) {
-        personaje1 = personaje;
+      personaje1 = personaje;
     } else if (personaje2 === null) {
-        personaje2 = personaje;
+      personaje2 = personaje;
     } else {
       console.log("Ya has seleccionado dos objetos");
+      return;
     }
+  
+    console.log("Objetos seleccionados:");
+    console.log(personaje1);
+    console.log(personaje2);
   
     if (personaje1 && personaje2) {
-      console.log("Objetos seleccionados:");
-      console.log(personaje1);
-      console.log(personaje2);
+      const MAX_POWER = 30;
+      const MIN_POWER = 10;
+  
+      let vida1 = personaje1.vida;
+      let vida2 = personaje2.vida;
+  
+      let round = 0;
+  
+      function golpe() {
+        let mathRandom = Math.random()*(MAX_POWER - MIN_POWER) + MIN_POWER;
+        return Math.ceil(mathRandom);
+      }
+  
+      while (vida1 > 0 && vida2 > 0) {
+        round += 1;
+        let golpe1 = golpe();
+        let golpe2 = golpe();
+        console.log("-------------- Round " + round +"-----------------");
+  
+        // Actualizar vida de los personajes
+        vida1 -= golpe2;
+        vida2 -= golpe1;
+  
+        console.log(personaje1.nombre + " produce un daño de " + golpe1 + " utilizando el ataque " + personaje1.poder);
+        console.log(personaje2.nombre + " produce un daño de " + golpe2  + " utilizando el ataque " + personaje2.poder);
+        console.log("vidas:")
+        console.log("La vida de " + personaje2.nombre + " es " + (vida2 > 0 ? vida2 : 0));
+        console.log("La vida de " + personaje1.nombre + " es " + (vida1 > 0 ? vida1 : 0));
+
+  
+        // Verificar si algún personaje perdió
+        if (vida1 <= 0) {
+            console.log("------RESULTADO FINAL----")
+          console.log(personaje1.nombre + " ha perdido")
+          console.log(personaje2.nombre + " es el ganador");
+          break;
+        }
+        if (vida2 <= 0) {
+            console.log("-----RESULTADO FINAL------")
+          console.log(personaje2.nombre + " ha perdido");
+          console.log(personaje1.nombre + " es el ganador");
+          break;
+        }
+  
+        // Verificar si se alcanzó el número máximo de rounds
+        if (round >= 10) {
+          console.log("Se ha alcanzado el número máximo de rounds");
+          break;
+        }
+      }
     }
   }
-  
+
   let lista = document.createElement("ul");
   
   for (let i = 0; i < listaPersonajes.length; i++) {
     let personaje = listaPersonajes[i];
-    let elementoLista = document.createElement("li");
-    let boton = document.createElement("button");
-    boton.textContent = personaje.nombre;
-    boton.onclick = function() {
-        seleccionarPersonaje(personaje);
-    };
-    elementoLista.appendChild(boton);
-    lista.appendChild(elementoLista);
-  }
-  
-  document.body.appendChild(lista);
-
-const MAX_POWER = 30
-const MIN_POWER = 10
-
-let vidaLuffy = 100
-let vidaNaruto = 100
-
-let round = 0
-
-
-
-function golpe(){
-    let mathRandom = Math.random()*(MAX_POWER - MIN_POWER) + MIN_POWER;
-    return Math.ceil(mathRandom);
-}
-while(vidaLuffy > 0 && vidaNaruto > 0){
-    round +=1
-    let golpeLuffy = golpe()
-    let golpeNaruto = golpe()
-        console.log("-------------- Round " + round +"-----------------")
-       
-    if(golpeLuffy > golpeNaruto){
-        vidaNaruto -= golpeLuffy;
-        if(vidaNaruto<0){
-            vidaNaruto=0
-        }
-        console.log("Luffy produce un daño de " + golpeLuffy)
-        console.log("La vida de Naruto es " + vidaNaruto)
-        console.log("La vida de Luffy es " + vidaLuffy)
-    }else{
-        vidaLuffy -= golpeNaruto;
-        if(vidaLuffy<0){
-            vidaLuffy=0
-        }
-        console.log("Naruto produce un daño de " + golpeNaruto)
-        console.log("La vida de Naruto es " + vidaNaruto)
-        console.log("La vida de Luffy es " + vidaLuffy)
-    }
-}
+    let elemento}
+    for (let i = 0; i < listaPersonajes.length; i++) {
+        let personaje = listaPersonajes[i];
+        let elementoLista = document.createElement("li");
+        let boton = document.createElement("button");
+        boton.textContent = personaje.nombre;
+        boton.onclick = function() {
+          seleccionarPersonaje(personaje);
+        };
+        elementoLista.appendChild(boton);
+        lista.appendChild(elementoLista);
+      }
+      
+      document.body.appendChild(lista);
