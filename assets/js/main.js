@@ -1,27 +1,30 @@
 let listaPersonajes = [
-    {nombre: "Goku", vida: 100, poder: "Kamehameha"},
-    {nombre:"Luffy", vida:100, poder:"Gomu Gomu no Pistol"},
-    {nombre:"Naruto", vida:100, poder:"Rasengan",},
-    {nombre:"Gon Freecss", vida:100, poder:"Jajanken",},
-    {nombre:"Tanjiro", vida:100, poder:"Hinokami Kagura",},
-  ];
-  
-  let personaje1 = null;
-  let personaje2 = null;
-  
-  function seleccionarPersonaje(personaje) {
-    if (personaje1 === null) {
-      personaje1 = personaje;
-    } else if (personaje2 === null) {
-      personaje2 = personaje;
-    } else {
-      console.log("Ya has seleccionado dos objetos");
-      return;
-    }
-  
+  {nombre: "Goku", vida: 100, poder: "Kamehameha"},
+  {nombre:"Luffy", vida:100, poder:"Gomu Gomu no Pistol"},
+  {nombre:"Naruto", vida:100, poder:"Rasengan",},
+  {nombre:"Gon Freecss", vida:100, poder:"Jajanken",},
+  {nombre:"Tanjiro", vida:100, poder:"Hinokami Kagura",},
+];
+
+let personaje1 = null;
+let personaje2 = null;
+
+function seleccionarPersonaje(personajeSeleccionado) {
+  // Buscar y filtrar al personaje seleccionado del array listaPersonajes
+  const personajeEncontrado = listaPersonajes.find(personaje => personaje.nombre === personajeSeleccionado.nombre);
+
+  if (!personajeEncontrado) {
+    console.log("Personaje no encontrado");
+    return;
+  }
+  if (personaje1 === null) {
+    personaje1 = personajeEncontrado;
+  } else if (personaje2 === null) {
+    personaje2 = personajeEncontrado;
     console.log("Objetos seleccionados:");
     console.log(personaje1);
     console.log(personaje2);
+  }
   
     if (personaje1 && personaje2) {
       const MAX_POWER = 30;
@@ -95,3 +98,4 @@ let listaPersonajes = [
       }
       
       document.body.appendChild(lista);
+    
