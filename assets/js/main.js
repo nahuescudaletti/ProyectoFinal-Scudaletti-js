@@ -8,7 +8,17 @@ let listaPersonajes = [
 
 let personaje1 = null;
 let personaje2 = null;
+//DOM
+let reiniciarJuegoBtn = document.createElement("button");
+reiniciarJuegoBtn.textContent = "Reiniciar juego";
+reiniciarJuegoBtn.classList.add("reiniciar");
+reiniciarJuegoBtn.onclick = function() {
+  console.clear();
+  personaje1 = null;
+  personaje2 = null;
+};
 
+document.body.appendChild(reiniciarJuegoBtn);
 function seleccionarPersonaje(personajeSeleccionado) {
   // Buscar y filtrar al personaje seleccionado del array listaPersonajes
   const personajeEncontrado = listaPersonajes.find(personaje => personaje.nombre === personajeSeleccionado.nombre);
@@ -98,4 +108,4 @@ function seleccionarPersonaje(personajeSeleccionado) {
       }
       
       document.body.appendChild(lista);
-    
+     
