@@ -9,6 +9,7 @@ let listaPersonajes = [
 let personaje1 = null;
 let personaje2 = null;
 //DOM
+let ganadores = [];
 let reiniciarJuegoBtn = document.createElement("button");
 reiniciarJuegoBtn.textContent = "Reiniciar juego";
 reiniciarJuegoBtn.classList.add("reiniciar");
@@ -16,6 +17,18 @@ reiniciarJuegoBtn.onclick = function() {
   console.clear();
   personaje1 = null;
   personaje2 = null;
+  localStorage.setItem("ganadores", JSON.stringify(ganadores));
+  const ganadoresDiv = document.getElementById("ganadores");
+  const datos = localStorage.getItem("ganadores");
+  if (datos) {
+  const ganadores = JSON.parse(datos);
+  ganadoresDiv.innerHTML = "Ganadores anteriores: " + ganadores.join(", ");
+}
+const rondaDiv = document.getElementById('combate');
+rondaDiv.innerHTML = "";
+const ganadorDiv = document.getElementById('combate');
+rondaDiv.innerHTML = "";
+
 };
 
 document.body.appendChild(reiniciarJuegoBtn);
@@ -50,37 +63,47 @@ function seleccionarPersonaje(personajeSeleccionado) {
         return Math.ceil(mathRandom);
       }
   
+      const resultadosDiv = document.createElement("div");
+      resultadosDiv.id = "resultados";
+      document.body.appendChild(resultadosDiv);
+      
       while (vida1 > 0 && vida2 > 0) {
         round += 1;
         let golpe1 = golpe();
         let golpe2 = golpe();
         console.log("-------------- Round " + round +"-----------------");
-  
+    
         // Actualizar vida de los personajes
         vida1 -= golpe2;
         vida2 -= golpe1;
-  
-        console.log(personaje1.nombre + " produce un daño de " + golpe1 + " utilizando el ataque " + personaje1.poder);
-        console.log(personaje2.nombre + " produce un daño de " + golpe2  + " utilizando el ataque " + personaje2.poder);
-        console.log("vidas:")
-        console.log("La vida de " + personaje2.nombre + " es " + (vida2 > 0 ? vida2 : 0));
-        console.log("La vida de " + personaje1.nombre + " es " + (vida1 > 0 ? vida1 : 0));
-
-  
+    
+        const combateDiv = document.getElementById('combate');
+        const rondaDiv = document.createElement('div');
+        rondaDiv.id = 'ronda';
+        
+        rondaDiv.innerHTML = `Round ${round}: <br>${personaje1.nombre} produce un daño de ${golpe1} utilizando el ataque <span class="poder">${personaje1.poder}</span>.<br> ${personaje2.nombre} produce un daño de ${golpe2} utilizando el ataque <span class="poder">${personaje2.poder}</span>.<br> La vida de <span class="nombre">${personaje1.nombre}</span> es ${vida1 > 0 ? vida1 : 0}.<br> La vida de <span class="nombre">${personaje2.nombre}</span> es ${vida2 > 0 ? vida2 : 0}.`;
+        combateDiv.appendChild(rondaDiv); 
+        
+        
         // Verificar si algún personaje perdió
         if (vida1 <= 0) {
-            console.log("------RESULTADO FINAL----")
+          console.log("------RESULTADO FINAL----")
           console.log(personaje1.nombre + " ha perdido")
-          console.log(personaje2.nombre + " es el ganador");
+          ganador = personaje2.nombre;
+          console.log(ganador + " ha ganado");
+          ganadores.push(ganador);
           break;
         }
         if (vida2 <= 0) {
-            console.log("-----RESULTADO FINAL------")
+          console.log("-----RESULTADO FINAL------")
           console.log(personaje2.nombre + " ha perdido");
-          console.log(personaje1.nombre + " es el ganador");
+          ganador = personaje1.nombre;
+          console.log(ganador + " ha ganado");
+          ganadores.push(ganador);
+        
           break;
         }
-  
+    
         // Verificar si se alcanzó el número máximo de rounds
         if (round >= 10) {
           console.log("Se ha alcanzado el número máximo de rounds");
@@ -109,3 +132,4 @@ function seleccionarPersonaje(personajeSeleccionado) {
       
       document.body.appendChild(lista);
      
+      

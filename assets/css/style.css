@@ -22,3 +22,14 @@ padding: 15px;
 font-weight: bold;
 font-size: 100%;
 }
+span.nombre {
+    font-size:110%;
+    font-weight: bold;
+    color: blue;
+  }
+  
+  span.poder {
+    font-size:110%;
+    font-weight: bold;
+    color: green;
+  }
