@@ -4,6 +4,7 @@ let listaPersonajes = [
   {nombre:"Naruto", vida:100, poder:"Rasengan",},
   {nombre:"Gon Freecss", vida:100, poder:"Jajanken",},
   {nombre:"Tanjiro", vida:100, poder:"Hinokami Kagura",},
+  
 ];
 
 let personaje1 = null;
@@ -28,7 +29,8 @@ const rondaDiv = document.getElementById('combate');
 rondaDiv.innerHTML = "";
 const ganadorDiv = document.getElementById('combate');
 rondaDiv.innerHTML = "";
-
+const gn = document.getElementById("gn");
+   gn.innerHTML = '';
 };
 
 document.body.appendChild(reiniciarJuegoBtn);
@@ -50,7 +52,7 @@ function seleccionarPersonaje(personajeSeleccionado) {
   }
   
     if (personaje1 && personaje2) {
-      const MAX_POWER = 30;
+      const MAX_POWER = 40;
       const MIN_POWER = 10;
   
       let vida1 = personaje1.vida;
@@ -71,11 +73,26 @@ function seleccionarPersonaje(personajeSeleccionado) {
         round += 1;
         let golpe1 = golpe();
         let golpe2 = golpe();
-        console.log("-------------- Round " + round +"-----------------");
+        console.log("-------------- Round " + round +"-----------------")
+        ;
     
-        // Actualizar vida de los personajes
-        vida1 -= golpe2;
-        vida2 -= golpe1;
+        // actualizar vida de los personajes
+        if(golpe1 > golpe2){
+          vida2 -= golpe1;
+          if(vida2<0){
+              vida2=0
+          }
+      }else{
+          vida1 -= golpe2;
+          if(vida1<0){
+              vida1=0
+          }
+      }
+        console.log(personaje1.nombre + " produce un daño de " + golpe1 + " utilizando el ataque " + personaje1.poder);
+        console.log(personaje2.nombre + " produce un daño de " + golpe2  + " utilizando el ataque " + personaje2.poder);
+        console.log("vidas:")
+        console.log("La vida de " + personaje2.nombre + " es " + (vida2 > 0 ? vida2 : 0));
+        console.log("La vida de " + personaje1.nombre + " es " + (vida1 > 0 ? vida1 : 0));
     
         const combateDiv = document.getElementById('combate');
         const rondaDiv = document.createElement('div');
@@ -90,6 +107,9 @@ function seleccionarPersonaje(personajeSeleccionado) {
           console.log("------RESULTADO FINAL----")
           console.log(personaje1.nombre + " ha perdido")
           ganador = personaje2.nombre;
+              const gn = document.getElementById("gn");
+          gn.innerHTML = `<span class="gn">${ganador} ha ganado </span>`;
+          console.log(ganador + " ha ganado");
           console.log(ganador + " ha ganado");
           ganadores.push(ganador);
           break;
@@ -98,6 +118,8 @@ function seleccionarPersonaje(personajeSeleccionado) {
           console.log("-----RESULTADO FINAL------")
           console.log(personaje2.nombre + " ha perdido");
           ganador = personaje1.nombre;
+          const gn = document.getElementById("gn");
+          gn.innerHTML = `<span class="gn">${ganador} ha ganado </span>`
           console.log(ganador + " ha ganado");
           ganadores.push(ganador);
         

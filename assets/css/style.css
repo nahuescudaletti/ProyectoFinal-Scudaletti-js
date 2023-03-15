@@ -31,5 +31,10 @@ span.nombre {
   span.poder {
     font-size:110%;
     font-weight: bold;
+    color: rgb(204, 0, 255);
+  }
+  .gn{
+    font-size:110%;
+    font-weight: bold;
     color: green;
   }
