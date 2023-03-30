@@ -4,9 +4,7 @@ let listaPersonajes = [
   {nombre:"Naruto", vida:100, poder:"Rasengan",},
   {nombre:"Gon Freecss", vida:100, poder:"Jajanken",},
   {nombre:"Tanjiro", vida:100, poder:"Hinokami Kagura",},
-  
 ];
-
 let personaje1 = null;
 let personaje2 = null;
 //DOM
@@ -32,7 +30,6 @@ rondaDiv.innerHTML = "";
 const gn = document.getElementById("gn");
    gn.innerHTML = '';
 };
-
 document.body.appendChild(reiniciarJuegoBtn);
 function seleccionarPersonaje(personajeSeleccionado) {
   // Buscar y filtrar al personaje seleccionado del array listaPersonajes
@@ -50,7 +47,7 @@ function seleccionarPersonaje(personajeSeleccionado) {
     console.log(personaje1);
     console.log(personaje2);
   }
-  
+
     if (personaje1 && personaje2) {
       const MAX_POWER = 40;
       const MIN_POWER = 10;
@@ -100,8 +97,7 @@ function seleccionarPersonaje(personajeSeleccionado) {
         
         rondaDiv.innerHTML = `Round ${round}: <br>${personaje1.nombre} produce un daño de ${golpe1} utilizando el ataque <span class="poder">${personaje1.poder}</span>.<br> ${personaje2.nombre} produce un daño de ${golpe2} utilizando el ataque <span class="poder">${personaje2.poder}</span>.<br> La vida de <span class="nombre">${personaje1.nombre}</span> es ${vida1 > 0 ? vida1 : 0}.<br> La vida de <span class="nombre">${personaje2.nombre}</span> es ${vida2 > 0 ? vida2 : 0}.`;
         combateDiv.appendChild(rondaDiv); 
-        
-        
+      
         // Verificar si algún personaje perdió
         if (vida1 <= 0) {
           console.log("------RESULTADO FINAL----")
@@ -155,3 +151,15 @@ function seleccionarPersonaje(personajeSeleccionado) {
       document.body.appendChild(lista);
      
       
+
+      fetch('https://api.jikan.moe/v4/anime/21/full')
+      .then(response => response.json())
+      .then(data => {
+        const animeTitle = data.title;
+        const animeSynopsis = data.synopsis;
+        const animeImage = data.image_url;
+    
+        document.getElementById("title").innerHTML = animeTitle;
+        document.getElementById("synopsis").innerHTML = animeSynopsis;
+        document.getElementById("image").src = animeImage;
+      });
