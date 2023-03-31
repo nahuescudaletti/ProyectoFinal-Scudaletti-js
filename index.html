@@ -4,23 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Batallas</title>
 </head>
 <body>
+    
     <main>
-        <h1>Elige 2 personajes para que peleen</h1>
+        <h1 class="d-flex justify-content-center">Elige 2 personajes para que peleen</h1>
             <script src="./assets/js/main.js"></script>
-            <div id="ganadores"><h2></h2></div>
+            <div class="d-flex justify-content-center" id="ganadores"><h2></h2></div>
     </main>
         <footer>
-            <div id="combate"></div>
-            <div id="gn"></div>
+            <div class="container-fluid d-flex justify-content-center" id="combate"></div>
+            <div class="d-flex justify-content-center" id="gn"></div>
         </footer>
-        <div id="fetch-anime">
-            <h2 id="title"></h2>
-            <p id="synopsis"></p>
-            <div id="image"></div>
+        <div class="container-fluid d-flex justify-content-center text">
+            <h2>RECOMENDACIÓN</h2>
         </div>
+        <div id="fetch-anime container-fluid">
+            <h2 class="d-flex justify-content-center" id="title"></h2>
+            <p class="d-flex justify-content-center" id="synopsis"></p>
+            <div class="d-flex justify-content-center col-4 mx-auto imageen">
+                <img class="container" id="image" src="" alt="">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="custom-btn btn-10 d-flex justify-content-center" id="reco">recomendar la pagina!</button>
+            <script>
+                 document.getElementById('reco').addEventListener('click', function() {
+                    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Gracias por tu recomendación!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+          })
+            </script>
+        </div>
+        
+<!-- bootstrap -->
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     </body>
 </html>

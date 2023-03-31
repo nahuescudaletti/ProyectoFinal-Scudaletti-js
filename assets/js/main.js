@@ -9,6 +9,7 @@ let personaje1 = null;
 let personaje2 = null;
 //DOM
 let ganadores = [];
+
 let reiniciarJuegoBtn = document.createElement("button");
 reiniciarJuegoBtn.textContent = "Reiniciar juego";
 reiniciarJuegoBtn.classList.add("reiniciar");
@@ -130,34 +131,42 @@ function seleccionarPersonaje(personajeSeleccionado) {
       }
     }
   }
+  
 
   let lista = document.createElement("ul");
+
+for (let i = 0; i < listaPersonajes.length; i++) {
+  let personaje = listaPersonajes[i];
+  let elementoLista = document.createElement("li");
+  let boton = document.createElement("button");
+  boton.textContent = personaje.nombre;
+  boton.onclick = function() {
+    seleccionarPersonaje(personaje);
+  };
+  boton.classList.add("btn", "btn-primary"); // agregamos clases de Bootstrap para el estilo del botón
+  elementoLista.appendChild(boton);
+  lista.appendChild(elementoLista);
+}
+
+lista.classList.add("list-group"); // agregamos clase de Bootstrap para el estilo de la lista
+document.body.appendChild(lista);
   
-  for (let i = 0; i < listaPersonajes.length; i++) {
-    let personaje = listaPersonajes[i];
-    let elemento}
-    for (let i = 0; i < listaPersonajes.length; i++) {
-        let personaje = listaPersonajes[i];
-        let elementoLista = document.createElement("li");
-        let boton = document.createElement("button");
-        boton.textContent = personaje.nombre;
-        boton.onclick = function() {
-          seleccionarPersonaje(personaje);
-        };
-        elementoLista.appendChild(boton);
-        lista.appendChild(elementoLista);
-      }
-      
-      document.body.appendChild(lista);
+  let divCentrado = document.createElement("div");
+  divCentrado.classList.add("d-flex", "justify-content-center", "align-items-center");
+  divCentrado.appendChild(lista);
+  
+  document.body.appendChild(divCentrado);
+  
      
       
 
       fetch('https://api.jikan.moe/v4/anime/21/full')
       .then(response => response.json())
       .then(data => {
-        const animeTitle = data.title;
-        const animeSynopsis = data.synopsis;
-        const animeImage = data.image_url;
+        const animeTitle = data.data.title;
+        console.log(data.data)
+        const animeSynopsis = data.data.synopsis;
+        const animeImage = data.data.images.jpg.image_url;
     
         document.getElementById("title").innerHTML = animeTitle;
         document.getElementById("synopsis").innerHTML = animeSynopsis;
